@@ -9,43 +9,42 @@
 #include <micropi.h>
 
 // Die Adresse des IoPi Servers, mit dem wir uns verbinden wollen:
-String server = "http://vm-11.cses.informatik.hu-berlin.de";
+String adresse = "http://vm-11.cses.informatik.hu-berlin.de";
 
 // Der name unseres Projektes
-String project = "My First Project";
+String projekt = "My First Project";
 
 // Das IoPi-Projekt:
-IoPiProject iopi;
+IoPiServer server;
 
 // LED pin
-int LED;
+int LED = 26;
 
 void setup() {
 	Console.begin();
 
-	LED = 26;
 	pinMode(LED, OUTPUT);
 	digitalWrite(LED, LOW);
 
-	iopi.begin(server, project);
+	server.begin(server, projekt);
 }
 
 void loop() {
 
 	// Schau nach, ob auf dem Server ein Befehl für uns vorliegt. Sollte kein
 	// Befehl vorliegen, oder etwas schief gehen, erhalten wir einen leeren String.
-	String cmd = iopi.getCommand();
+	String befehl = server.getCommand();
 
 	// Wenn wir "licht an" erhalten haben, schalte die LED an.
-	if (cmd == "licht an") {
+	if (befehl == "licht an") {
 		digitalWrite(LED, HIGH);
 
 	// Wenn wir "licht aus" erhalten haben, schalte die LED aus.
-	} else if (cmd == "licht aus") {
+	} else if (befehl == "licht aus") {
 		digitalWrite(LED, LOW);
 
 	// Wenn wir einen anderen Befehl erhalten haben, gib ihn auf dem Monitor aus.
-	} else if (cmd != "")  {
+	} else if (befehl != "")  {
 		Console.println("Unbekannter Befehl: " + cmd);
 	}
 

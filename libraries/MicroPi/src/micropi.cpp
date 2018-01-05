@@ -30,45 +30,45 @@ void servoStep(int pin, int dir) {
  * ==============
  */
 
-void IoPiProject::begin(const char *url, const char *project) {
+void IoPiServer::begin(const char *url, const char *project) {
 	init(url, project);
 }
 
-void IoPiProject::begin(String &url, String &project) {
+void IoPiServer::begin(String &url, String &project) {
 	init(url.c_str(), project.c_str());
 }
 
-void IoPiProject::init(const char* url, const char * project) {
+void IoPiServer::init(const char* url, const char * project) {
 	Bridge.begin();
 	this->m_baseUrl = url;
 	this->m_project = project;
-	encodeUrl(this->m_project); // TODO: is this necessary?
-	postEvent("Verbindung hergestellt.");
+	encodeUrl(this->m_project);
+	postMessage("Verbindung hergestellt.");
 }
 
-unsigned int IoPiProject::postData(const char* sensorName, int value) {
+unsigned int IoPiServer::postData(const char* sensorName, int value) {
 	String strSensorName = sensorName;
 	encodeUrl(strSensorName);
 	String url = this->m_baseUrl + "/sensor/" + this->m_project + "/" + strSensorName + "/" + value;
-	return this->m_httpClient.postAsynchronously(url.c_str(), "");
+	return this->m_httpClient.post(url.c_str(), "");
 }
 
-unsigned int IoPiProject::postData(String &sensorName, int value) {
+unsigned int IoPiServer::postData(String &sensorName, int value) {
 	return postData(sensorName.c_str(), value);
 }
 
-unsigned int IoPiProject::postEvent(const char* event) {
+unsigned int IoPiServer::postMessage(const char* event) {
 	String strEvent = event;
 	encodeUrl(strEvent);
 	String url = this->m_baseUrl + "/event/" + this->m_project + "/" + strEvent;
-	return this->m_httpClient.postAsynchronously(url.c_str(), "");
+	return this->m_httpClient.post(url.c_str(), "");
 }
 
-unsigned int IoPiProject::postEvent(String &event) {
-	return postEvent(event.c_str());
+unsigned int IoPiServer::postMessage(String &event) {
+	return postMessage(event.c_str());
 }
 
-String IoPiProject::getCommand() {
+String IoPiServer::getCommand() {
 	String url = this->m_baseUrl + "/commands/" + this->m_project;
 	String cmd = "";
 	if(this->m_httpClient.get(url) == 0) {
@@ -79,7 +79,7 @@ String IoPiProject::getCommand() {
 	return cmd;
 }
 
-void IoPiProject::encodeUrl(String &url) {
+void IoPiServer::encodeUrl(String &url) {
 	url.replace("\%", "\%25");
 	url.replace(" ", "\%20");
 	url.replace("!", "\%21");

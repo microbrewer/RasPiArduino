@@ -13,20 +13,17 @@
 Adafruit_ADS1015 adw;
 
 // Die Adresse des IoPi Servers, mit dem wir uns verbinden wollen:
-String server = "http://vm-11.cses.informatik.hu-berlin.de";
+String adresse = "http://iopi.informatik.hu-berlin.de";
 
 // Der name unseres Projektes
-String project = "My First Project";
+String projekt = "Mein Projekt";
 
 // Das IoPi-Projekt:
-IoPiProject iopi;
+IoPiServer server;
 
 void setup() {
-	// Starte den Seriellen Monitor
-	Console.begin();
-
 	// Initialisiere das IoPi Projekt.
-	iopi.begin(server, project);
+	server.begin(adresse, projekt);
 
 	// Starte den AD-Wandler
 	adw.begin();			// initialisiere den ADW
@@ -40,7 +37,7 @@ void loop() {
 	int analogIn = adw.readADC_SingleEnded(2);
 
 	// Schicke den Wert an den IoPi Server
-	iopi.postData("Helligkeit", analogIn);
+	server.postData("Helligkeit", analogIn);
 
 	delay(1000);
 }

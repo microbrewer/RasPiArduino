@@ -29,7 +29,7 @@ void servoStep(int pin, int dir);
  * ==============
  */
 
-class IoPiProject {
+class IoPiServer {
 
 private:
 	String m_baseUrl;
@@ -40,7 +40,7 @@ private:
 	void encodeUrl(String &url);
 
 public:
-	IoPiProject() {}
+	IoPiServer() {}
 
 	void begin(const char *url, const char *project);
 	void begin(String &url, String &project);
@@ -48,8 +48,8 @@ public:
 	unsigned int postData(String &sensorName, int value);
 	unsigned int postData(const char *sensorName, int value);
 
-	unsigned int postEvent(String &event);
-	unsigned int postEvent(const char *event);
+	unsigned int postMessage(String &event);
+	unsigned int postMessage(const char *event);
 
 	String getCommand();
 };

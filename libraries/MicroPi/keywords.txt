@@ -6,7 +6,7 @@
 # Class (KEYWORD1)
 #######################################
 
-IoPiProject	KEYWORD1
+IoPiServer	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -14,7 +14,7 @@ IoPiProject	KEYWORD1
 
 servoStep	KEYWORD2
 postData	KEYWORD2
-postEvent	KEYWORD2
+postMessage	KEYWORD2
 getCommand	KEYWORD2
 
 #######################################
@@ -22,6 +22,5 @@ getCommand	KEYWORD2
 SERVO_FORWARD	LITERAL1
 SERVO_BACKWARD	LITERAL1
 SERVO_STOP		LITERAL1
-
 #######################################
 

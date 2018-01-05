@@ -8,23 +8,23 @@
 #include <micropi.h>
 
 // Die Adresse des IoPi Servers, mit dem wir uns verbinden wollen:
-String server = "http://vm-11.cses.informatik.hu-berlin.de";
+String adresse = "http://iopi.informatik.hu-berlin.de";
 
 // Der name unseres Projektes
-String project = "My First Project";
+String projekt = "Mein Projekt";
 
 // Das IoPi-Projekt:
-IoPiProject iopi;
+IoPiServer server;
 
 void setup() {
 	// Initialisiere das Projekt.
-	iopi.begin(server, project);
+	server.begin(adresse, projekt);
 }
 
 void loop() {
 
 	// Sende "Hello Server" an den Server.
-	iopi.postEvent("Hello Server!");
+	server.postMessage("Hallo Server!");
 
 	// Warte 5 Sekunden.
 	delay(5000);
